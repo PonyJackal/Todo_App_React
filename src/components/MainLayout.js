@@ -2,6 +2,7 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, FormControl, Form } from 'react-bootstrap'
+import DatePicker from 'react-datepicker'
 import TodoList from './TodoList'
 import useDebounce from '../libs/useDebounce'
 import useToggle from '../libs/useToggle'
@@ -12,12 +13,13 @@ const MainLayout = () => {
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false)
   const [findCompleted, toggle] = useToggle(false)
+  const [dueDate, setDueDate] = useState(new Date().toDateString())
   const debouncedSearch = useDebounce(searchTerm, 500)
 
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.TodoReducer.todos)
   const addTodoTrigger = useCallback(
-    (note) => dispatch(addTodo(note)),
+    (todo) => dispatch(addTodo(todo)),
     [dispatch],
   )
   const toggleTodoTrigger = useCallback(
@@ -30,7 +32,7 @@ const MainLayout = () => {
 
   const onAdd = () => {
     if (newTodo.current.value) {
-      addTodoTrigger(newTodo.current.value)
+      addTodoTrigger({ note: newTodo.current.value, dueDate })
       // eslint-disable-next-line no-plusplus
       index.current++
     }
@@ -65,7 +67,11 @@ const MainLayout = () => {
               type="text"
               placeholder="Add a new todo note here"
               ref={newTodo}
-            />{' '}
+            />
+            <DatePicker
+              selected={new Date(dueDate)}
+              onChange={(date) => setDueDate(date.toDateString())}
+            />
             <Button variant="primary" onClick={onAdd}>
               Add
             </Button>

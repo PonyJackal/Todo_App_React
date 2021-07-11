@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 
 const todos = JSON.parse(localStorage.getItem('todos'))
@@ -9,46 +10,55 @@ const initState = {
     //   id: 1,
     //   note: 'Making the checkbox',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 2,
     //   note: 'class component is poorly',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 3,
     //   note: 'so easy to create such a poorly',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 4,
     //   note: 'this component is really doing',
     //   completed: true,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 5,
     //   note: 'Functional components can reduce coupling',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 6,
     //   note: 'our code without impacting another',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 7,
     //   note: 'Once again, the constraints put in place by functional',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 8,
     //   note: 'management library such as Redux',
     //   completed: true,
+    //   dueDate: '07/11/2021',
     // },
     // {
     //   id: 9,
     //   note: 'The general heuristic I use',
     //   completed: false,
+    //   dueDate: '07/11/2021',
     // },
   ],
 }
@@ -66,8 +76,9 @@ const todosSlice = createSlice({
         {
           // eslint-disable-next-line no-plusplus
           id: index++,
-          note: action.payload,
+          note: action.payload.note,
           completed: false,
+          dueDate: action.payload.dueDate,
         },
       ],
     }),
@@ -77,9 +88,9 @@ const todosSlice = createSlice({
         todo.id !== action.payload.id
           ? todo
           : {
-              id: action.payload.id,
+              ...todo,
               note: action.payload.note,
-              completed: action.payload.completed,
+              dueDate: action.payload.dueDate,
             },
       ),
     }),
