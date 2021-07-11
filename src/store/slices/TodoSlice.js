@@ -4,63 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const todos = JSON.parse(localStorage.getItem('todos'))
 
 const initState = {
-  todos: [
-    // ...todos,
-    {
-      id: 1,
-      title: 'Making the checkbox',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 2,
-      title: 'class component is poorly',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 3,
-      title: 'so easy to create such a poorly',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 4,
-      title: 'this component is really doing',
-      completed: true,
-      date: '07/11/2021',
-    },
-    {
-      id: 5,
-      title: 'Functional components can reduce coupling',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 6,
-      title: 'our code without impacting another',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 7,
-      title: 'Once again, the constraints put in place by functional',
-      completed: false,
-      date: '07/11/2021',
-    },
-    {
-      id: 8,
-      title: 'management library such as Redux',
-      completed: true,
-      date: '07/11/2021',
-    },
-    {
-      id: 9,
-      title: 'The general heuristic I use',
-      completed: false,
-      date: '07/11/2021',
-    },
-  ],
+  todos: [...todos],
 }
 
 let index = 10

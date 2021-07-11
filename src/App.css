@@ -52,7 +52,12 @@
 .todo-actions {
   margin-left: 30px;
 }
-
+.todo-actions .edit-todo {
+  color: #2323b1;
+}
+.todo-actions .delete-todo {
+  color: #d44f4f;
+}
 .todo-actions svg {
   margin-left: 10px;
   cursor: pointer;

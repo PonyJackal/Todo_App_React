@@ -65,9 +65,16 @@ const Todo = ({ id, title, date, completed, onToggle }) => {
       )}
       {!isEdit ? (
         <div className="todo-actions">
-          <FontAwesomeIcon icon={faEye} />
-          <FontAwesomeIcon icon={faPencilAlt} onClick={onEdit} />
-          <FontAwesomeIcon icon={faTrashAlt} onClick={onDelete} />
+          <FontAwesomeIcon
+            className="edit-todo"
+            icon={faPencilAlt}
+            onClick={onEdit}
+          />
+          <FontAwesomeIcon
+            className="delete-todo"
+            icon={faTrashAlt}
+            onClick={onDelete}
+          />
         </div>
       ) : (
         // eslint-disable-next-line react/button-has-type

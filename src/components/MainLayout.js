@@ -116,7 +116,6 @@ const MainLayout = () => {
             data={todos}
             completed={findCompleted}
             searchTerm={debouncedSearch}
-            onToggle={onToggle}
           />
         )}
 

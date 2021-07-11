@@ -11,7 +11,7 @@ import { format } from 'date-fns'
 import PropTypes from 'prop-types'
 import Todo from './Todo'
 
-const CalendarView = ({ data, searchTerm, completed, onToggle }) => (
+const CalendarView = ({ data, searchTerm, completed }) => (
   <div className="border p-4 w-full">
     <WeeklyCalendar week={new Date('2021-07-11T07:00:00.000Z')}>
       <WeeklyContainer>
@@ -54,7 +54,6 @@ CalendarView.propTypes = {
   data: PropTypes.array,
   searchTerm: PropTypes.string,
   completed: PropTypes.bool,
-  onToggle: PropTypes.func,
 }
 
 export default CalendarView
