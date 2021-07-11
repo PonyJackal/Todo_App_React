@@ -1,26 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Todo from './Todo'
 
-const TodoList = ({ data, searchTerm, onToggle, completed }) => (
-  <ul className="todo-container">
+const TodoList = ({ data, searchTerm, completed, onToggle }) => (
+  <ul className="todos-list">
     {data
       .filter(
         (todo) =>
           (!searchTerm ||
-            todo.title.toLowerCase().includes(searchTerm.toLowerCase())) &&
+            todo.note.toLowerCase().includes(searchTerm.toLowerCase())) &&
           (!completed || todo.completed === completed),
       )
       .map((todo) => (
-        <li key={todo.id}>
-          <label className={todo.completed ? 'completed-todo' : ''}>
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => onToggle(todo.id)}
-            />
-            {todo.title}
-          </label>
-        </li>
+        <Todo {...todo} onToggle={onToggle} key={todo.id} />
       ))}
   </ul>
 )

@@ -4,47 +4,47 @@ const initState = {
   todos: [
     {
       id: 1,
-      title: 'Making the checkbox',
+      note: 'Making the checkbox',
       completed: false,
     },
     {
       id: 2,
-      title: 'class component is poorly',
+      note: 'class component is poorly',
       completed: false,
     },
     {
       id: 3,
-      title: 'so easy to create such a poorly',
+      note: 'so easy to create such a poorly',
       completed: false,
     },
     {
       id: 4,
-      title: 'this component is really doing',
+      note: 'this component is really doing',
       completed: true,
     },
     {
       id: 5,
-      title: 'Functional components can reduce coupling',
+      note: 'Functional components can reduce coupling',
       completed: false,
     },
     {
       id: 6,
-      title: 'our code without impacting another',
+      note: 'our code without impacting another',
       completed: false,
     },
     {
       id: 7,
-      title: 'Once again, the constraints put in place by functional',
+      note: 'Once again, the constraints put in place by functional',
       completed: false,
     },
     {
       id: 8,
-      title: 'management library such as Redux',
+      note: 'management library such as Redux',
       completed: true,
     },
     {
       id: 9,
-      title: 'The general heuristic I use',
+      note: 'The general heuristic I use',
       completed: false,
     },
   ],
@@ -63,10 +63,26 @@ const todosSlice = createSlice({
         {
           // eslint-disable-next-line no-plusplus
           id: index++,
-          title: action.payload,
+          note: action.payload,
           completed: false,
         },
       ],
+    }),
+    updateTodo: (state, action) => ({
+      ...state,
+      todos: state.todos.map((todo) =>
+        todo.id !== action.payload.id
+          ? todo
+          : {
+              id: action.payload.id,
+              note: action.payload.note,
+              completed: action.payload.completed,
+            },
+      ),
+    }),
+    deleteTodo: (state, action) => ({
+      ...state,
+      todos: state.todos.filter((todo) => todo.id !== action.payload),
     }),
     toggleTodo: (state, action) => ({
       ...state,
@@ -83,6 +99,7 @@ const todosSlice = createSlice({
   },
 })
 
-export const { addTodo, toggleTodo } = todosSlice.actions
+export const { addTodo, toggleTodo, updateTodo, deleteTodo } =
+  todosSlice.actions
 
 export default todosSlice.reducer

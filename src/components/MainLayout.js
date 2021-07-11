@@ -16,7 +16,7 @@ const MainLayout = () => {
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.TodoReducer.todos)
   const addTodoTrigger = useCallback(
-    (title) => dispatch(addTodo(title)),
+    (note) => dispatch(addTodo(note)),
     [dispatch],
   )
   const toggleTodoTrigger = useCallback(

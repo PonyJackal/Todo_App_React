@@ -64,15 +64,28 @@
   margin-left: 10px;
 }
 
-.todo-container {
+.todos-list {
   list-style: none;
 }
 
-.todo-container li {
+.todos-list li {
   margin: 10px 0;
   font-size: 20px;
 }
 
 .completed-todo {
   text-decoration: line-through;
+}
+
+.todo-container {
+  display: flex;
+}
+
+.todo-actions {
+  margin-left: 30px;
+}
+
+.todo-actions svg {
+  margin-left: 10px;
+  cursor: pointer;
 }
