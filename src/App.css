@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-family: sans-serif;
+  text-align: center;
 }
 
 .App-logo {
@@ -37,23 +39,25 @@
   }
 }
 
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
 .TodoApp label {
   cursor: pointer;
   user-select: none;
 }
 
-.add-new-todo {
-  display: block;
-  margin-bottom: 10px;
+.todo-input-group {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-.add-new-todo button {
-  margin-left: 10px;
+.todo-input-group label {
+  margin-bottom: 0;
+}
+.todo-input-group button,
+.todo-input-group input {
+  margin: 0px 10px;
+}
+.app input[type='checkbox'] {
+  width: 40px;
 }
 
 .find-todo label {
@@ -77,10 +81,6 @@
   text-decoration: line-through;
 }
 
-.todo-container {
-  display: flex;
-}
-
 .todo-actions {
   margin-left: 30px;
 }
@@ -88,4 +88,26 @@
 .todo-actions svg {
   margin-left: 10px;
   cursor: pointer;
+  font-size: 24px;
+}
+
+.app {
+  padding: 80px;
+  background-color: floralwhite;
+}
+
+.todo-container {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+}
+.todo-container label {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+.save-btn {
+  margin-top: 20px;
+  float: right;
 }

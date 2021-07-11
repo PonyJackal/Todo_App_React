@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Button, FormControl, Form } from 'react-bootstrap'
 import TodoList from './TodoList'
 import useDebounce from '../libs/useDebounce'
 import useToggle from '../libs/useToggle'
@@ -54,35 +55,49 @@ const MainLayout = () => {
   )
 
   return (
-    <div className="TodoApp">
-      <h1>Todo List</h1>
-      <div className="add-new-todo">
-        <label>
-          Add new Todo: <input type="text" ref={newTodo} />
-        </label>
-        <button onClick={onAdd}>Add</button>
+    <div className="app">
+      <div className="container">
+        <h1>Todo List</h1>
+        <Form>
+          <Form.Group className="mb-3 todo-input-group">
+            <Form.Label id="add-note">Note: </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Add a new todo note here"
+              ref={newTodo}
+            />{' '}
+            <Button variant="primary" onClick={onAdd}>
+              Add
+            </Button>
+          </Form.Group>
+          <Form.Group className="mb-3 todo-input-group">
+            <Form.Label>Find: </Form.Label>
+            <FormControl
+              placeholder="Find todo note here"
+              value={searchTerm}
+              onChange={handleChange}
+            />
+
+            <Form.Label>Completed: </Form.Label>
+            <FormControl
+              type="checkbox"
+              name="completed"
+              onChange={() => toggle()}
+              checked={findCompleted}
+            />
+            {isLoading && <span className="loading">searching ....</span>}
+          </Form.Group>
+        </Form>
+        <TodoList
+          data={todos}
+          completed={findCompleted}
+          searchTerm={debouncedSearch}
+          onToggle={onToggle}
+        />
+        <Button variant="primary" className="save-btn" onClick={onSave}>
+          Save
+        </Button>
       </div>
-      <div className="find-todo">
-        <label>
-          Find Todo: <input value={searchTerm} onChange={handleChange} />
-        </label>
-        <label>
-          Completed:{' '}
-          <input
-            type="checkbox"
-            onChange={() => toggle()}
-            checked={findCompleted}
-          />
-        </label>
-        {isLoading && <span className="loading">searching ....</span>}
-      </div>
-      <TodoList
-        data={todos}
-        completed={findCompleted}
-        searchTerm={debouncedSearch}
-        onToggle={onToggle}
-      />
-      <button onClick={onSave}>Save</button>
     </div>
   )
 }

@@ -8,6 +8,7 @@ import {
   faTrashAlt,
   faEye,
 } from '@fortawesome/free-solid-svg-icons'
+import { ListGroup, Button, Form } from 'react-bootstrap'
 import { updateTodo, deleteTodo } from '../store/slices/TodoSlice'
 
 const Todo = ({ id, note, completed, onToggle }) => {
@@ -34,23 +35,26 @@ const Todo = ({ id, note, completed, onToggle }) => {
     setIsEdit(false)
     updateTodoTrigger({ id, note: newNote, completed })
   }
+  const onCancel = () => {
+    setIsEdit(false)
+  }
   const onDelete = () => {
     deleteTodoTrigger(id)
   }
   return (
-    <li key={id} className="todo-container">
-      <label className={completed ? 'completed-todo' : ''}>
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => onToggle(id)}
-        />
-        {!isEdit ? (
-          note
-        ) : (
-          <input type="text" value={newNote} onChange={onNoteChange} />
-        )}
-      </label>
+    <ListGroup.Item key={id} className="todo-container">
+      <Form.Control
+        type="checkbox"
+        checked={completed}
+        onChange={() => onToggle(id)}
+      />
+      {!isEdit ? (
+        <Form.Label className={completed ? 'completed-todo' : ''}>
+          {note}
+        </Form.Label>
+      ) : (
+        <Form.Control type="text" value={newNote} onChange={onNoteChange} />
+      )}
       {!isEdit ? (
         <div className="todo-actions">
           <FontAwesomeIcon icon={faEye} />
@@ -59,9 +63,12 @@ const Todo = ({ id, note, completed, onToggle }) => {
         </div>
       ) : (
         // eslint-disable-next-line react/button-has-type
-        <button onClick={onSave}>Save</button>
+        <div className="todo-container">
+          <Button onClick={onSave}>Save</Button>
+          <Button onClick={onCancel}>Cancel</Button>
+        </div>
       )}
-    </li>
+    </ListGroup.Item>
   )
 }
 

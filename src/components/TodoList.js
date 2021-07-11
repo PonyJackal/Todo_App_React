@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { ListGroup } from 'react-bootstrap'
 import Todo from './Todo'
 
 const TodoList = ({ data, searchTerm, completed, onToggle }) => (
-  <ul className="todos-list">
+  <ListGroup className="todos-list">
     {data
       .filter(
         (todo) =>
@@ -14,7 +15,7 @@ const TodoList = ({ data, searchTerm, completed, onToggle }) => (
       .map((todo) => (
         <Todo {...todo} onToggle={onToggle} key={todo.id} />
       ))}
-  </ul>
+  </ListGroup>
 )
 
 TodoList.propTypes = {
