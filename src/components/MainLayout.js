@@ -38,6 +38,10 @@ const MainLayout = () => {
     newTodo.current.focus()
   }
 
+  const onSave = () => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value)
   }
@@ -78,6 +82,7 @@ const MainLayout = () => {
         searchTerm={debouncedSearch}
         onToggle={onToggle}
       />
+      <button onClick={onSave}>Save</button>
     </div>
   )
 }

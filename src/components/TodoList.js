@@ -20,7 +20,7 @@ const TodoList = ({ data, searchTerm, completed, onToggle }) => (
 TodoList.propTypes = {
   data: PropTypes.array,
   searchTerm: PropTypes.string,
-  onToggle: PropTypes.bool,
+  onToggle: PropTypes.func,
   completed: PropTypes.bool,
 }
 

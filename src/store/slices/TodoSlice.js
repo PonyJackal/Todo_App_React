@@ -1,52 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const todos = JSON.parse(localStorage.getItem('todos'))
+
 const initState = {
   todos: [
-    {
-      id: 1,
-      note: 'Making the checkbox',
-      completed: false,
-    },
-    {
-      id: 2,
-      note: 'class component is poorly',
-      completed: false,
-    },
-    {
-      id: 3,
-      note: 'so easy to create such a poorly',
-      completed: false,
-    },
-    {
-      id: 4,
-      note: 'this component is really doing',
-      completed: true,
-    },
-    {
-      id: 5,
-      note: 'Functional components can reduce coupling',
-      completed: false,
-    },
-    {
-      id: 6,
-      note: 'our code without impacting another',
-      completed: false,
-    },
-    {
-      id: 7,
-      note: 'Once again, the constraints put in place by functional',
-      completed: false,
-    },
-    {
-      id: 8,
-      note: 'management library such as Redux',
-      completed: true,
-    },
-    {
-      id: 9,
-      note: 'The general heuristic I use',
-      completed: false,
-    },
+    ...todos,
+    // {
+    //   id: 1,
+    //   note: 'Making the checkbox',
+    //   completed: false,
+    // },
+    // {
+    //   id: 2,
+    //   note: 'class component is poorly',
+    //   completed: false,
+    // },
+    // {
+    //   id: 3,
+    //   note: 'so easy to create such a poorly',
+    //   completed: false,
+    // },
+    // {
+    //   id: 4,
+    //   note: 'this component is really doing',
+    //   completed: true,
+    // },
+    // {
+    //   id: 5,
+    //   note: 'Functional components can reduce coupling',
+    //   completed: false,
+    // },
+    // {
+    //   id: 6,
+    //   note: 'our code without impacting another',
+    //   completed: false,
+    // },
+    // {
+    //   id: 7,
+    //   note: 'Once again, the constraints put in place by functional',
+    //   completed: false,
+    // },
+    // {
+    //   id: 8,
+    //   note: 'management library such as Redux',
+    //   completed: true,
+    // },
+    // {
+    //   id: 9,
+    //   note: 'The general heuristic I use',
+    //   completed: false,
+    // },
   ],
 }
 
