@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/button-has-type */
 import React, { useState, useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, FormControl, Form } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import TodoList from './TodoList'
+import CalendarView from './CalendarView'
 import useDebounce from '../libs/useDebounce'
 import useToggle from '../libs/useToggle'
 import { addTodo, toggleTodo } from '../store/slices/TodoSlice'
@@ -13,7 +15,8 @@ const MainLayout = () => {
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false)
   const [findCompleted, toggle] = useToggle(false)
-  const [dueDate, setDueDate] = useState(new Date().toDateString())
+  const [calendarView, toggleCalendarView] = useToggle(false)
+  const [date, setDate] = useState(new Date().toDateString())
   const debouncedSearch = useDebounce(searchTerm, 500)
 
   const dispatch = useDispatch()
@@ -32,7 +35,7 @@ const MainLayout = () => {
 
   const onAdd = () => {
     if (newTodo.current.value) {
-      addTodoTrigger({ note: newTodo.current.value, dueDate })
+      addTodoTrigger({ title: newTodo.current.value, date })
       // eslint-disable-next-line no-plusplus
       index.current++
     }
@@ -62,15 +65,15 @@ const MainLayout = () => {
         <h1>Todo List</h1>
         <Form>
           <Form.Group className="mb-3 todo-input-group">
-            <Form.Label id="add-note">Note: </Form.Label>
+            <Form.Label id="add-title">Title: </Form.Label>
             <Form.Control
               type="text"
-              placeholder="Add a new todo note here"
+              placeholder="Add a new todo title here"
               ref={newTodo}
             />
             <DatePicker
-              selected={new Date(dueDate)}
-              onChange={(date) => setDueDate(date.toDateString())}
+              selected={new Date(date)}
+              onChange={(d) => setDate(d.toDateString())}
             />
             <Button variant="primary" onClick={onAdd}>
               Add
@@ -79,7 +82,7 @@ const MainLayout = () => {
           <Form.Group className="mb-3 todo-input-group">
             <Form.Label>Find: </Form.Label>
             <FormControl
-              placeholder="Find todo note here"
+              placeholder="Find todo title here"
               value={searchTerm}
               onChange={handleChange}
             />
@@ -91,15 +94,32 @@ const MainLayout = () => {
               onChange={() => toggle()}
               checked={findCompleted}
             />
+            <Form.Label>Calendar: </Form.Label>
+            <FormControl
+              type="checkbox"
+              name="completed"
+              onChange={() => toggleCalendarView()}
+              checked={calendarView}
+            />
             {isLoading && <span className="loading">searching ....</span>}
           </Form.Group>
         </Form>
-        <TodoList
-          data={todos}
-          completed={findCompleted}
-          searchTerm={debouncedSearch}
-          onToggle={onToggle}
-        />
+        {!calendarView ? (
+          <TodoList
+            data={todos}
+            completed={findCompleted}
+            searchTerm={debouncedSearch}
+            onToggle={onToggle}
+          />
+        ) : (
+          <CalendarView
+            data={todos}
+            completed={findCompleted}
+            searchTerm={debouncedSearch}
+            onToggle={onToggle}
+          />
+        )}
+
         <Button variant="primary" className="save-btn" onClick={onSave}>
           Save
         </Button>

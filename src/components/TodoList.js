@@ -9,7 +9,7 @@ const TodoList = ({ data, searchTerm, completed, onToggle }) => (
       .filter(
         (todo) =>
           (!searchTerm ||
-            todo.note.toLowerCase().includes(searchTerm.toLowerCase())) &&
+            todo.title.toLowerCase().includes(searchTerm.toLowerCase())) &&
           (!completed || todo.completed === completed),
       )
       .map((todo) => (

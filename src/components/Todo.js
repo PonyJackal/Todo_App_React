@@ -12,11 +12,11 @@ import { ListGroup, Button, Form } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import { updateTodo, deleteTodo } from '../store/slices/TodoSlice'
 
-const Todo = ({ id, note, dueDate, completed, onToggle }) => {
+const Todo = ({ id, title, date, completed, onToggle }) => {
   const dispatch = useDispatch()
   const [isEdit, setIsEdit] = useState(false)
-  const [newNote, setNewNote] = useState(note)
-  const [newDueDate, setNewDueDate] = useState(new Date(dueDate).toDateString())
+  const [newTitle, setNewTitle] = useState(title)
+  const [newDate, setNewDate] = useState(new Date(date).toDateString())
 
   const updateTodoTrigger = useCallback(
     (todo) => dispatch(updateTodo(todo)),
@@ -30,12 +30,12 @@ const Todo = ({ id, note, dueDate, completed, onToggle }) => {
   const onEdit = () => {
     setIsEdit(true)
   }
-  const onNoteChange = (event) => {
-    setNewNote(event.target.value)
+  const onTitleChange = (event) => {
+    setNewTitle(event.target.value)
   }
   const onSave = () => {
     setIsEdit(false)
-    updateTodoTrigger({ id, note: newNote, completed, dueDate: newDueDate })
+    updateTodoTrigger({ id, title: newTitle, completed, date: newDate })
   }
   const onCancel = () => {
     setIsEdit(false)
@@ -52,14 +52,14 @@ const Todo = ({ id, note, dueDate, completed, onToggle }) => {
       />
       {!isEdit ? (
         <Form.Label className={completed ? 'completed-todo' : ''}>
-          {note}
+          {title}
         </Form.Label>
       ) : (
         <div className="todo-input-group">
-          <Form.Control type="text" value={newNote} onChange={onNoteChange} />
+          <Form.Control type="text" value={newTitle} onChange={onTitleChange} />
           <DatePicker
-            selected={new Date(newDueDate)}
-            onChange={(date) => setNewDueDate(date.toDateString())}
+            selected={new Date(newDate)}
+            onChange={(d) => setNewDate(d.toDateString())}
           />
         </div>
       )}
@@ -82,8 +82,8 @@ const Todo = ({ id, note, dueDate, completed, onToggle }) => {
 
 Todo.propTypes = {
   id: PropTypes.number,
-  note: PropTypes.string,
-  dueDate: PropTypes.string,
+  title: PropTypes.string,
+  date: PropTypes.string,
   completed: PropTypes.bool,
   onToggle: PropTypes.func,
 }
