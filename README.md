@@ -113,3 +113,11 @@ E2e test using Cypress might be implemented as well.
 ### Typescript
 
 Typescript would be used for future expand and improvements.
+
+### Google Calendar or Outlook Calendar implementation
+
+Google calendar or Outlook calendar should be implemented to remind the todos
+
+### Jira/Asana/Clickup imeplementation
+
+Jira/Asana/Clickup should be implementented to fetch todo notes from Jira/Asana/Clickup.
