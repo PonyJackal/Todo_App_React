@@ -72,6 +72,7 @@ const MainLayout = () => {
               ref={newTodo}
             />
             <DatePicker
+              className="date-picker"
               selected={new Date(date)}
               onChange={(d) => setDate(d.toDateString())}
             />

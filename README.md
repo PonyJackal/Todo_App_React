@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# React Todo App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -14,17 +14,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
@@ -39,32 +34,82 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### redux, redux-toolkit
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I used Redux to manage global state in this app.
+Since this app is quite simple and the state is not so complicated, it is not required.
+But just for the sake of future improvements or expand, I used Redux since it is quite stable for enterprise applications.
 
-### Code Splitting
+react-redux or redux-actions would be nice to use, but they require quite much boilerplate code rather than redux-toolkit
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+For the future requirement to fetch todo notes from the BE using API request, in order to handle API state and caches, etc, I am thinking to use react-query, but redux-saga is still fine.
 
-### Analyzing the Bundle Size
+### react-bootstrap
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+I used React-Bootstrap for this project, cause it is quite good to use React-Bootstrap for MVPs or Demos,
+But this should be updated to more efficient css-in-js approaches like styled component or Tailwildcss
 
-### Making a Progressive Web App
+### react-datepicker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Approaches
 
-### Advanced Configuration
+### useToggle
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+I created useToggle hook since there are many part to share toggle/checkbox logic. </br>
 
-### Deployment
+```
+const useToggle = (initState = false) => {
+    const [status, setStatus] = useState(initState)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    const toggle = useCallback(() => {
+        setStatus((state) => !state)
+    }, [])
 
-### `npm run build` fails to minify
+    return [status, toggle]
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### useDebounce
+
+I created useDebounce hook in order to make API requests more efficient for future need to fetch todo notes from the backend using API request. </br>
+
+```
+const useDebounce = (searchTerm, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(searchTerm)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchTerm)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [searchTerm, delay])
+
+  return debouncedValue
+}
+
+```
+
+## ToDos
+
+### Pagination
+
+Pagination should be implemented in order to manage tons of todo notes.
+In this case, filtering and sorting would be implemented in BE and FE just sends query params for that to fetch matched todo notes.
+
+### Tailwindcss or StyledComponent
+
+Tailwindcss or StyledComponent should be implemented rather than react-bootstrap, since they very much flexible to use and customize.
+
+### Unit Test
+
+Unit test using Jest and react-testing-library should be implemented in order to make sure each component works properly.
+E2e test using Cypress might be implemented as well.
+
+### Typescript
+
+Typescript would be used for future expand and improvements.

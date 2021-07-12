@@ -58,6 +58,7 @@ const Todo = ({ id, title, date, completed, onToggle }) => {
         <div className="todo-input-group">
           <Form.Control type="text" value={newTitle} onChange={onTitleChange} />
           <DatePicker
+            className="date-picker"
             selected={new Date(newDate)}
             onChange={(d) => setNewDate(d.toDateString())}
           />
